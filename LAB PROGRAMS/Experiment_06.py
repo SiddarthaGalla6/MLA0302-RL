@@ -1,44 +1,109 @@
+from google.colab import files
+import pandas as pd
 import numpy as np
-p=[0.2,0.4,0.6]
-n=500
-def eg():
-    c=[0]*3
-    v=[0]*3
-    r=0
-    for i in range(n):
-        a=np.random.randint(3) if np.random.rand()<0.1 else np.argmax(v)
-        x=1 if np.random.rand()<p[a] else 0
-        c[a]+=1
-        v[a]+=((x-v[a])/c[a])
-        r+=x
-    return r
+import math
+ROWS=0
+ADS=[]
+def upload_csv():
+    f=files.upload()
+    return list(f.keys())[0]
+def load_csv(file):
+    global ADS,ROWS
+    df=pd.read_csv(file)
+    ADS=df.values
+    ROWS=len(df)
+def epsilon_greedy():
+    d=ADS.shape[1]
+    n=[0]*d
+    r=[0]*d
+    total=0
+    eps=0.1
+    for i in range(ROWS):
+        if np.random.rand()<eps:
+            ad=np.random.randint(d)
+        else:
+            ad=np.argmax(r)
+        reward=ADS[i,ad]
+        n[ad]+=1
+        r[ad]+=((reward-r[ad])/n[ad])
+        total+=reward
+    return total/ROWS
 def ucb():
-    c=[1,1,1]
-    v=[0,0,0]
-    r=0
-    for i in range(3,n):
-        a=np.argmax([v[j]+np.sqrt(np.log(i+1)/c[j]) for j in range(3)])
-        x=1 if np.random.rand()<p[a] else 0
-        c[a]+=1
-        v[a]+=((x-v[a])/c[a])
-        r+=x
-    return r
-def ts():
-    a=[1]*3
-    b=[1]*3
-    r=0
-    for i in range(n):
-        arm=np.argmax([np.random.beta(a[j],b[j]) for j in range(3)])
-        x=1 if np.random.rand()<p[arm] else 0
-        a[arm]+=x
-        b[arm]+=1-x
-        r+=x
-    return r
-print("Epsilon:",eg())
-print("UCB:",ucb())
-print("Thompson:",ts())
+    d=ADS.shape[1]
+    n=[0]*d
+    s=[0]*d
+    total=0
+    for i in range(ROWS):
+        ad=0
+        m=-1
+        for j in range(d):
+            if n[j]>0:
+                u=s[j]/n[j]+math.sqrt(2*math.log(i+1)/n[j])
+            else:
+                u=1e9
+            if u>m:
+                m=u
+                ad=j
+        reward=ADS[i,ad]
+        n[ad]+=1
+        s[ad]+=reward
+        total+=reward
+    return total/ROWS
+def thompson():
+    d=ADS.shape[1]
+    suc=[0]*d
+    fail=[0]*d
+    total=0
+    for i in range(ROWS):
+        sample=[np.random.beta(suc[j]+1,fail[j]+1) for j in range(d)]
+        ad=np.argmax(sample)
+        reward=ADS[i,ad]
+        if reward==1:
+            suc[ad]+=1
+        else:
+            fail[ad]+=1
+        total+=reward
+    return total/ROWS
+while True:
+    print("\n====== Advertisement Bandit Algorithms ======")
+    print("1.Upload CSV")
+    print("2.Run Algorithms")
+    print("3.Exit")
+    ch=input("Enter Choice: ")
+    if ch=="1":
+        file=upload_csv()
+        load_csv(file)
+        print("CSV Uploaded Successfully")
+        print("Rows :",ROWS)
+        print("Advertisements :",ADS.shape[1])
+    elif ch=="2":
+        eg=epsilon_greedy()
+        uc=ucb()
+        ts=thompson()
+        print("\nClick Through Rate")
+        print("--------------------------")
+        print("Epsilon Greedy :",round(eg,4))
+        print("UCB            :",round(uc,4))
+        print("Thompson       :",round(ts,4))
+        best=max({"Epsilon Greedy":eg,"UCB":uc,"Thompson Sampling":ts},key={"Epsilon Greedy":eg,"UCB":uc,"Thompson Sampling":ts}.get)
+        print("\nBest Algorithm :",best)
+    elif ch=="3":
+        break
+    else:
+        print("Invalid Choice")
+
 
 Output:
-Epsilon: 271
-UCB: 293
-Thompson: 287
+====== Advertisement Bandit Algorithms ======
+1.Upload CSV
+2.Run Algorithms
+3.Exit
+Enter Choice: 2
+
+Click Through Rate
+--------------------------
+Epsilon Greedy : 0.4667
+UCB            : 0.5333
+Thompson       : 0.2667
+
+Best Algorithm : UCB
