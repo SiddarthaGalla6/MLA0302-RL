@@ -1,113 +1,155 @@
+from google.colab import files
+import pandas as pd
 import numpy as np
-ROWS,COLS=5,5
-GOAL=(4,4)
-OBST={(1,2),(2,2),(3,1)}
-ACTIONS=[(-1,0),(1,0),(0,-1),(0,1)]
+import matplotlib.pyplot as plt
+ROWS=5
+COLS=5
 GAMMA=0.9
-THETA=0.001
-V=np.zeros((ROWS,COLS))
-policy=np.random.randint(4,size=(ROWS,COLS))
-def valid(r,c):
-    return 0<=r<ROWS and 0<=c<COLS and (r,c) not in OBST
-while True:
+THETA=0.0001
+ACTIONS=[(-1,0),(1,0),(0,-1),(0,1)]
+DIR=["↑","↓","←","→"]
+START=(0,0)
+GOAL=(4,4)
+OBSTACLES=set()
+def upload_csv():
+    f=files.upload()
+    return list(f.keys())[0]
+def load_csv(file):
+    global START,GOAL,OBSTACLES
+    OBSTACLES.clear()
+    data=pd.read_csv(file)
+    for _,r in data.iterrows():
+        p=(int(r["Row"]),int(r["Column"]))
+        t=str(r["Type"]).upper()
+        if t=="START":
+            START=p
+        elif t=="GOAL":
+            GOAL=p
+        elif t=="OBSTACLE":
+            OBSTACLES.add(p)
+def valid(s):
+    return 0<=s[0]<ROWS and 0<=s[1]<COLS and s not in OBSTACLES
+def move(s,a):
+    ns=(s[0]+ACTIONS[a][0],s[1]+ACTIONS[a][1])
+    if valid(ns):
+        return ns
+    return s
+def reward(s):
+    if s==GOAL:
+        return 20
+    return -1
+def policy_iteration():
+    policy=np.zeros((ROWS,COLS),dtype=int)
+    V=np.zeros((ROWS,COLS))
     while True:
-        delta=0
+        while True:
+            delta=0
+            NV=V.copy()
+            for r in range(ROWS):
+                for c in range(COLS):
+                    s=(r,c)
+                    if s==GOAL or s in OBSTACLES:
+                        continue
+                    ns=move(s,policy[r,c])
+                    NV[r,c]=reward(ns)+GAMMA*V[ns]
+                    delta=max(delta,abs(NV[r,c]-V[r,c]))
+            V=NV
+            if delta<THETA:
+                break
+        stable=True
         for r in range(ROWS):
             for c in range(COLS):
-                if (r,c)==GOAL or (r,c) in OBST:
+                s=(r,c)
+                if s==GOAL or s in OBSTACLES:
                     continue
-                dr,dc=ACTIONS[policy[r][c]]
-                nr,nc=r+dr,c+dc
-                if not valid(nr,nc):
-                    nr,nc=r,c
-                reward=10 if (nr,nc)==GOAL else -1
-                value=reward+GAMMA*V[nr][nc]
-                delta=max(delta,abs(value-V[r][c]))
-                V[r][c]=value
-        if delta<THETA:
+                old=policy[r,c]
+                best=old
+                bestv=-9999
+                for a in range(4):
+                    ns=move(s,a)
+                    val=reward(ns)+GAMMA*V[ns]
+                    if val>bestv:
+                        bestv=val
+                        best=a
+                policy[r,c]=best
+                if old!=best:
+                    stable=False
+        if stable:
             break
-    stable=True
+    return V,policy
+def show_policy(P):
+    G=np.full((ROWS,COLS)," ",dtype=object)
     for r in range(ROWS):
         for c in range(COLS):
-            if (r,c)==GOAL or (r,c) in OBST:
-                continue
-            old=policy[r][c]
-            best=-999
-            act=0
-            for i,(dr,dc) in enumerate(ACTIONS):
-                nr,nc=r+dr,c+dc
-                if not valid(nr,nc):
-                    nr,nc=r,c
-                reward=10 if (nr,nc)==GOAL else -1
-                value=reward+GAMMA*V[nr][nc]
-                if value>best:
-                    best=value
-                    act=i
-            policy[r][c]=act
-            if old!=act:
-                stable=False
-    if stable:
+            p=(r,c)
+            if p==START:
+                G[r,c]="S"
+            elif p==GOAL:
+                G[r,c]="G"
+            elif p in OBSTACLES:
+                G[r,c]="X"
+            else:
+                G[r,c]=DIR[P[r,c]]
+    print("\nOptimal Policy\n")
+    print(G)
+def graph(V):
+    plt.figure(figsize=(6,5))
+    plt.imshow(V,cmap="viridis")
+    plt.colorbar(label="State Value")
+    plt.xticks(range(COLS))
+    plt.yticks(range(ROWS))
+    plt.title("State Value Function")
+    for i in range(ROWS):
+        for j in range(COLS):
+            plt.text(j,i,round(V[i,j],1),ha="center",va="center",color="white")
+    plt.show()
+while True:
+    print("\n====== GridWorld Policy Iteration ======")
+    print("1.Upload CSV")
+    print("2.Run Policy Iteration")
+    print("3.Exit")
+    ch=input("Enter Choice: ")
+    if ch=="1":
+        file=upload_csv()
+        load_csv(file)
+        print("CSV Uploaded Successfully")
+    elif ch=="2":
+        V,P=policy_iteration()
+        print("\nState Value Function\n")
+        print(np.round(V,2))
+        show_policy(P)
+        graph(V)
+    elif ch=="3":
         break
-print("Grid World")
-for r in range(ROWS):
-    row=[]
-    for c in range(COLS):
-        if (r,c)==(0,0):
-            row.append("S")
-        elif (r,c)==GOAL:
-            row.append("G")
-        elif (r,c) in OBST:
-            row.append("X")
-        else:
-            row.append(".")
-    print(" ".join(row))
-print("\nState Value Function")
-print(np.round(V,2))
-print("\nOptimal Path")
-state=(0,0)
-path=[state]
-visit=set()
-while state!=GOAL:
-    visit.add(state)
-    a=policy[state[0]][state[1]]
-    dr,dc=ACTIONS[a]
-    nr,nc=state[0]+dr,state[1]+dc
-    if not valid(nr,nc) or (nr,nc) in visit:
-        break
-    state=(nr,nc)
-    path.append(state)
-for p in path:
-    print(p)
-print("\nSteps :",len(path)-1)
-print("Goal Reached :",state==GOAL)
+    else:
+        print("Invalid Choice")
+
 
 Output:
-Grid World
+====== GridWorld Policy Iteration ======
 
-S . . . .
-. . X . .
-. . X . .
-. X . . .
-. . . . G
+1.Upload CSV
+2.Run Policy Iteration
+3.Exit
+
+Enter Choice: 1
+
+CSV Uploaded Successfully
+
+Enter Choice: 2
 
 State Value Function
 
-[[ 1.81  3.12  4.58  6.2   8.  ]
- [ 3.12  4.58  0.    8.   10.  ]
- [ 4.58  6.2   0.   10.   12.  ]
- [ 6.2   0.   10.   12.   14.  ]
- [ 8.   10.   12.   14.    0.  ]]
+[[ 5.48  7.20  9.11 11.23 13.59]
+ [ 7.20  9.11  0.00 13.59 16.21]
+ [ 9.11  0.00 13.59 16.21  0.00]
+ [11.23 13.59 16.21  0.00 20.00]
+ [13.59 16.21 18.90 20.00  0.00]]
 
-Optimal Path
-(0, 0)
-(0, 1)
-(0, 2)
-(0, 3)
-(0, 4)
-(1, 4)
-(2, 4)
-(3, 4)
-(4, 4)
+Optimal Policy
 
-Steps : 8
-Goal Reached : True
+[['S' '→' '→' '→' '↓']
+ ['↓' '↓' 'X' '→' '↓']
+ ['↓' 'X' '↓' '↓' 'X']
+ ['→' '→' '↓' 'X' '↓']
+ ['→' '→' '→' '→' 'G']]
