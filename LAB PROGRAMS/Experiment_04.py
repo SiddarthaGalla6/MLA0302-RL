@@ -1,142 +1,154 @@
+from google.colab import files
+import pandas as pd
 import numpy as np
-ROWS,COLS=6,6
-ACTIONS={'UP':(-1,0),'DOWN':(1,0),'LEFT':(0,-1),'RIGHT':(0,1)}
-GAMMA=0.95
-THETA=1e-4
-WAREHOUSE=(0,0)
-DELIVERY_POINTS={(1,4),(3,2),(5,5)}
-OBSTACLES={(2,2),(2,3),(4,4),(0,3)}
-def reward(state,target):
-    if state==target:
+ROWS=5
+COLS=5
+ACTIONS=[(-1,0),(1,0),(0,-1),(0,1)]
+GAMMA=0.9
+ITEMS=set()
+OBSTACLES=set()
+GOAL=(4,4)
+def upload_csv():
+    f=files.upload()
+    return list(f.keys())[0]
+def load_csv(file):
+    global ITEMS,OBSTACLES,GOAL
+    ITEMS.clear()
+    OBSTACLES.clear()
+    data=pd.read_csv(file)
+    for _,r in data.iterrows():
+        p=(int(r["Row"]),int(r["Column"]))
+        t=str(r["Type"]).upper()
+        if t=="DELIVERY":
+            ITEMS.add(p)
+        elif t=="OBSTACLE":
+            OBSTACLES.add(p)
+        elif t=="GOAL":
+            GOAL=p
+def valid(s):
+    return 0<=s[0]<ROWS and 0<=s[1]<COLS
+def move(s,a):
+    ns=(s[0]+a[0],s[1]+a[1])
+    if valid(ns):
+        return ns
+    return s
+def reward(s):
+    if s==GOAL:
         return 10
-    if state in OBSTACLES:
+    if s in ITEMS:
+        return 5
+    if s in OBSTACLES:
         return -5
     return -1
-def is_valid(state):
-    r,c=state
-    return 0<=r<ROWS and 0<=c<COLS
-def next_state(state,action):
-    dr,dc=ACTIONS[action]
-    ns=(state[0]+dr,state[1]+dc)
-    return ns if is_valid(ns) else state
-def all_states():
-    return [(r,c) for r in range(ROWS) for c in range(COLS) if (r,c) not in OBSTACLES]
-def policy_evaluation(policy,V,target):
-    while True:
-        delta=0
-        for state in all_states():
-            if state==target:
-                continue
-            a=policy[state]
-            ns=next_state(state,a)
-            new_v=reward(ns,target)+GAMMA*V[ns]
-            delta=max(delta,abs(new_v-V[state]))
-            V[state]=new_v
-        if delta<THETA:
-            break
-    return V
-def policy_improvement(policy,V,target):
-    stable=True
-    for state in all_states():
-        if state==target:
-            continue
-        old_action=policy[state]
-        action_values={a:reward(next_state(state,a),target)+GAMMA*V[next_state(state,a)] for a in ACTIONS}
-        best_action=max(action_values,key=action_values.get)
-        policy[state]=best_action
-        if best_action!=old_action:
-            stable=False
-    return policy,stable
-def policy_iteration(target):
+def policy_iteration():
+    policy=np.zeros((ROWS,COLS),dtype=int)
     V=np.zeros((ROWS,COLS))
-    policy={s:np.random.choice(list(ACTIONS)) for s in all_states()}
-    iteration=0
     while True:
-        V=policy_evaluation(policy,V,target)
-        policy,stable=policy_improvement(policy,V,target)
-        iteration+=1
+        while True:
+            delta=0
+            NV=V.copy()
+            for r in range(ROWS):
+                for c in range(COLS):
+                    s=(r,c)
+                    if s==GOAL or s in OBSTACLES:
+                        continue
+                    ns=move(s,ACTIONS[policy[r,c]])
+                    NV[r,c]=reward(ns)+GAMMA*V[ns]
+                    delta=max(delta,abs(NV[r,c]-V[r,c]))
+            V=NV
+            if delta<0.0001:
+                break
+        stable=True
+        for r in range(ROWS):
+            for c in range(COLS):
+                s=(r,c)
+                if s==GOAL or s in OBSTACLES:
+                    continue
+                old=policy[r,c]
+                best=old
+                bestv=-999999
+                for i,a in enumerate(ACTIONS):
+                    ns=move(s,a)
+                    val=reward(ns)+GAMMA*V[ns]
+                    if val>bestv:
+                        bestv=val
+                        best=i
+                policy[r,c]=best
+                if old!=best:
+                    stable=False
         if stable:
             break
-    return V,policy,iteration
-def find_route(policy,start,target,max_steps=30):
-    state=start
-    route=[state]
-    for _ in range(max_steps):
-        if state==target:
-            break
-        action=policy[state]
-        state=next_state(state,action)
-        route.append(state)
-    return route
-def print_grid():
-    print("City Grid")
+    return V,policy
+def show():
+    print("\nCity Grid\n")
     for r in range(ROWS):
-        row=[]
         for c in range(COLS):
-            cell=(r,c)
-            if cell==WAREHOUSE:
-                row.append('W')
-            elif cell in DELIVERY_POINTS:
-                row.append('P')
-            elif cell in OBSTACLES:
-                row.append('X')
+            p=(r,c)
+            if p==GOAL:
+                print("G",end=" ")
+            elif p in ITEMS:
+                print("D",end=" ")
+            elif p in OBSTACLES:
+                print("X",end=" ")
             else:
-                row.append('.')
-        print(' '.join(row))
-if __name__=="__main__":
-    print_grid()
-    for target in DELIVERY_POINTS:
-        V,policy,iters=policy_iteration(target)
-        print(f"\nTarget: {target}")
-        print("Iterations:",iters)
-        print("Value Function:")
+                print(".",end=" ")
+        print()
+while True:
+    print("\n===== Delivery Drone Policy Iteration =====")
+    print("1.Upload CSV")
+    print("2.Show Grid")
+    print("3.Run Policy Iteration")
+    print("4.Exit")
+    ch=input("Enter Choice: ")
+    if ch=="1":
+        file=upload_csv()
+        load_csv(file)
+        print("CSV Uploaded Successfully")
+    elif ch=="2":
+        show()
+    elif ch=="3":
+        V,P=policy_iteration()
+        print("\nOptimal Value Function\n")
         print(np.round(V,2))
-        route=find_route(policy,WAREHOUSE,target)
-        print("Route:",route)
-        print("Steps:",len(route)-1)
+        out=pd.DataFrame(np.round(V,2))
+        out.to_csv("policy_iteration_output.csv",index=False)
+        print("\nOutput CSV Generated")
+        files.download("policy_iteration_output.csv")
+    elif ch=="4":
+        break
+    else:
+        print("Invalid Choice")
 
 
-Output:
+Output :
+===== Delivery Drone Policy Iteration =====
+1.Upload CSV
+2.Show Grid
+3.Run Policy Iteration
+4.Exit
+Enter Choice: 2
+
 City Grid
-W . . X . .
-. . . . P .
-. . X X . .
-. . P . . .
-. . . . X .
-. . . . . P
 
-Target: (3, 2)
-Iterations: 5
-Value Function:
-[[ 4.44  5.72  4.44  0.    4.44  3.21]
- [ 5.72  7.07  5.72  4.44  5.72  4.44]
- [ 7.07  8.5   0.    0.    7.07  5.72]
- [ 8.5  10.    0.   10.    8.5   7.07]
- [ 7.07  8.5  10.    8.5   0.    5.72]
- [ 5.72  7.07  8.5   7.07  5.72  4.44]]
-Route: [(0, 0), (1, 0), (2, 0), (3, 0), (3, 1), (3, 2)]
-Steps: 5
+. . . . D 
+. . X . . 
+. X . . D 
+. . . X . 
+. . D . G 
 
-Target: (5, 5)
-Iterations: 9
-Value Function:
-[[-1.09 -0.1   0.95  0.    3.21  4.44]
- [-0.1   0.95  2.05  3.21  4.44  5.72]
- [ 0.95  2.05  0.    0.    5.72  7.07]
- [ 2.05  3.21  4.44  5.72  7.07  8.5 ]
- [ 3.21  4.44  5.72  7.07  0.   10.  ]
- [ 4.44  5.72  7.07  8.5  10.    0.  ]]
-Route: [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (5, 1), (5, 2), (5, 3), (5, 4), (5, 5)]
-Steps: 10
+===== Delivery Drone Policy Iteration =====
+1.Upload CSV
+2.Show Grid
+3.Run Policy Iteration
+4.Exit
+Enter Choice: 3
 
-Target: (1, 4)
-Iterations: 7
-Value Function:
-[[ 4.44  5.72  7.07  0.   10.    8.5 ]
- [ 5.72  7.07  8.5  10.    0.   10.  ]
- [ 4.44  5.72  0.    0.   10.    8.5 ]
- [ 3.21  4.44  5.72  7.07  8.5   7.07]
- [ 2.05  3.21  4.44  5.72  0.    5.72]
- [ 0.95  2.05  3.21  4.44  3.21  4.44]]
-Route: [(0, 0), (1, 0), (1, 1), (1, 2), (1, 3), (1, 4)]
-Steps: 5
+Optimal Value Function
+
+[[33.74 38.6  44.   50.   50.  ]
+ [29.37 33.74  0.   44.   50.  ]
+ [33.74  0.   44.   50.   50.  ]
+ [38.6  44.   50.    0.   50.  ]
+ [44.   50.   50.   50.    0.  ]]
+
+Output CSV Generated
