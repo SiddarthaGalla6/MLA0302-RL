@@ -1,42 +1,81 @@
+from google.colab import files
+import pandas as pd
 import numpy as np
-policy = 0.5
-lr = 0.1
-print("Investment Optimization\n")
-for i in range(20):
-    market = np.random.choice([1,-1], p=[0.6,0.4])
-    prob = 1/(1+np.exp(-policy))
-    policy += lr * market * (1-prob)
-    print("Day",i+1,
-          " Market =",market,
-          " Policy =",round(policy,3))
-print("\nFinal Policy Value :",round(policy,3))
-if policy > 0.5:
-    print("Decision : Invest More")
-else:
-    print("Decision : Invest Conservatively")
-
+import matplotlib.pyplot as plt
+DATA=None
+EPISODES=100
+LR=0.05
+def upload_csv():
+    f=files.upload()
+    return list(f.keys())[0]
+def load_csv(file):
+    global DATA
+    DATA=pd.read_csv(file)
+def sigmoid(x):
+    return 1/(1+np.exp(-x))
+def policy_gradient():
+    theta=0.0
+    rewards=[]
+    probs=[]
+    for ep in range(EPISODES):
+        total=0
+        p=sigmoid(theta)
+        for _,r in DATA.iterrows():
+            action=1 if np.random.rand()<p else 0
+            ret=r["Return"]
+            reward=ret if action==1 else 0
+            total+=reward
+            grad=(action-p)*reward
+            theta+=LR*grad
+        rewards.append(total)
+        probs.append(sigmoid(theta))
+    return rewards,probs
+def graph(rewards):
+    plt.figure(figsize=(7,4))
+    plt.plot(rewards,linewidth=2)
+    plt.title("Policy Gradient Learning")
+    plt.xlabel("Episode")
+    plt.ylabel("Total Reward")
+    plt.grid(True)
+    plt.show()
+while True:
+    print("\n====== Investment Policy Gradient ======")
+    print("1.Upload CSV")
+    print("2.Run Policy Gradient")
+    print("3.Exit")
+    ch=input("Enter Choice: ")
+    if ch=="1":
+        file=upload_csv()
+        load_csv(file)
+        print("CSV Uploaded Successfully")
+        print("Total Records :",len(DATA))
+    elif ch=="2":
+        rewards,probs=policy_gradient()
+        print("\nFinal Policy Probability :",round(probs[-1],4))
+        print("Maximum Return :",round(max(rewards),2))
+        print("Average Return :",round(np.mean(rewards),2))
+        print("Minimum Return :",round(min(rewards),2))
+        graph(rewards)
+    elif ch=="3":
+        break
+    else:
+        print("Invalid Choice")
 
 Output:
-Investment Optimization
-Day 1  Market = -1  Policy = 0.462
-Day 2  Market = 1  Policy = 0.501
-Day 3  Market = -1  Policy = 0.463
-Day 4  Market = 1  Policy = 0.502
-Day 5  Market = -1  Policy = 0.464
-Day 6  Market = -1  Policy = 0.425
-Day 7  Market = 1  Policy = 0.465
-Day 8  Market = 1  Policy = 0.504
-Day 9  Market = -1  Policy = 0.466
-Day 10  Market = 1  Policy = 0.504
-Day 11  Market = 1  Policy = 0.542
-Day 12  Market = 1  Policy = 0.579
-Day 13  Market = -1  Policy = 0.543
-Day 14  Market = -1  Policy = 0.506
-Day 15  Market = -1  Policy = 0.469
-Day 16  Market = -1  Policy = 0.43
-Day 17  Market = -1  Policy = 0.391
-Day 18  Market = 1  Policy = 0.431
-Day 19  Market = 1  Policy = 0.47
-Day 20  Market = 1  Policy = 0.509
-Final Policy Value : 0.509
-Decision : Invest More
+====== Investment Policy Gradient ======
+
+1.Upload CSV
+2.Run Policy Gradient
+3.Exit
+
+Enter Choice: 1
+
+CSV Uploaded Successfully
+Total Records : 15
+
+Enter Choice: 2
+
+Final Policy Probability : 0.9987
+Maximum Return : 63
+Average Return : 51.28
+Minimum Return : 24
