@@ -1,3 +1,6 @@
+'''Set up an environment using OpenAI Gym and implement a policy to solve the MountainCar
+problem. Utilize Python libraries like Keras or TensorFlow to build and train the policy.'''
+
 import numpy as np
 movies=["Action","Comedy","Drama","Sci-Fi","Horror"]
 ratings=[4.8,4.1,3.9,4.6,3.5]
