@@ -1,3 +1,8 @@
+'''An online platform uses bandit algorithms to decide which advertisements to show to users.
+Implement epsilon-greedy, UCB, and Thompson Sampling algorithms. Use a Python script to
+determine which algorithm results in the highest click-through rate over time.'''
+
+    
 from google.colab import files
 import pandas as pd
 import numpy as np
