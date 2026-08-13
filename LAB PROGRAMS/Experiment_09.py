@@ -1,3 +1,8 @@
+'''A call center wants to optimize the assignment of customer service representatives to
+incoming calls. Implement a Monte Carlo simulation to estimate the value function for
+different assignment policies in Python.'''
+
+
 from google.colab import files
 import pandas as pd
 import numpy as np
