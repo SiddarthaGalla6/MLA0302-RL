@@ -1,3 +1,7 @@
+'''A robot navigates a grid to perform tasks. Use Bellman’s optimality equation to compute the
+optimal state-value function for the robot’s navigation tasks. Implement this in Python and
+demonstrate the optimal path.'''
+    
 import numpy as np
 energy=[45,60,55,70,80,65,50,75]
 demand=[50,58,60,72,78,68,52,70]
