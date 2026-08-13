@@ -1,4 +1,9 @@
-#3
+'''An online retailer uses a multi-armed bandit approach to set prices dynamically. Simulate
+different pricing strategies using epsilon-greedy, UCB, and Thompson Sampling. Write a
+Python script to compare which strategy maximizes revenue over a series of pricing
+decisions.'''
+
+
 import numpy as np
 import csv
 import os
