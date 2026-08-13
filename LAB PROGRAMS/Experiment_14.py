@@ -1,3 +1,8 @@
+'''Implement dynamic programming methods to solve a gridworld navigation problem where
+the agent must reach the goal with the least number of steps while avoiding obstacles. Use
+Python to simulate the environment and policy iteration.'''
+
+    
 from google.colab import files
 import pandas as pd
 import numpy as np
