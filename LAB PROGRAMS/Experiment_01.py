@@ -1,3 +1,7 @@
+'''An autonomous cleaning robot navigates a 5x5 grid where certain cells contain dirt (reward: +1) and obstacles (penalty: -1). The robot starts at the top-left 
+corner and must find an optimal policy to clean the entire grid efficiently. Implement the grid environment as an MDP and write a Python program to simulate the 
+robot’s navigation using different policies.'''
+
 import numpy as np
 import csv
 from google.colab import files
