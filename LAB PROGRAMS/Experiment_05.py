@@ -1,3 +1,8 @@
+'''In a taxi dispatching system, define an MDP where states are locations, actions are move
+directions, and rewards are based on reaching pick-up points quickly. Write a Python
+program to use value iteration to find the optimal dispatch policy.'''
+
+
 from google.colab import files
 import pandas as pd
 import numpy as np
