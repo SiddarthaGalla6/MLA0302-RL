@@ -1,3 +1,8 @@
+'''Implement Double DQN to optimize a stock trading strategy. The agent should learn to buy,
+sell, or hold stocks to maximize profits. Write a Python script to simulate the trading
+environment and train the agent.'''
+
+    
 from google.colab import files
 import pandas as pd
 import numpy as np
