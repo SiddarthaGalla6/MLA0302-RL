@@ -1,3 +1,8 @@
+'''Implement Q-learning to develop an AI agent that plays a simple grid-based game (e.g., a
+basic version of Pac-Man). The agent should learn to collect rewards (e.g., food) and avoid
+penalties (e.g., ghosts). Write a Python program to train and evaluate the AI agent'''
+
+
 from google.colab import files
 import pandas as pd
 import numpy as np
