@@ -1,3 +1,8 @@
+'''A robot vacuum cleaner navigates a house with various rooms and obstacles. Use the SARSA
+algorithm to learn the optimal cleaning policy that maximizes the cleaned area while
+minimizing energy usage. Implement this in Python.'''
+
+    
 from google.colab import files
 import pandas as pd
 import numpy as np
