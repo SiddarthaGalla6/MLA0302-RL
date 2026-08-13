@@ -1,3 +1,7 @@
+'''A call center uses Monte Carlo methods to optimize the assignment of customer service
+representatives to incoming calls. Implement Monte Carlo policy control in Python to
+minimize average call handling time.'''
+
 import numpy as np
 agents=["A1","A2","A3"]
 calls=3
