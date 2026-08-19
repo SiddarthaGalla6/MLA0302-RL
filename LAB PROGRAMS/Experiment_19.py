@@ -1,4 +1,8 @@
-"""Develop an AI agent to play a real-time strategy game (e.g., Age of Empires) using Actor-Critic methods. Implement the actor and critic networks in Python and train the agent to build structures, gather resources, and engage in strategic combat."""
+"""Develop an AI agent to play a real-time strategy game (e.g., Age of Empires) using 
+Actor-Critic methods. Implement the actor and critic networks in Python and train the 
+agent to build structures, gather resources, and engage in strategic combat."""
+
+
 import numpy as np
 ACTIONS=["Build","Gather","Attack"]
 def train():
@@ -32,7 +36,9 @@ while True:
     elif ch=="2":print("\nOutput:\nRTS Strategy Evaluation Completed")
     elif ch=="3":break
     else:print("Invalid Choice")
-OUTPUT=""""Output:
+
+
+OUTPUT=
 ====== RTS Actor-Critic ======
 1.Train Agent
 2.Evaluate Strategy
@@ -41,4 +47,4 @@ Enter Choice: 1
 Output:
 Actor Values: [4.95 3.96 6.98]
 Critic Value: 6.92
-Best Strategy: Attack"""
+Best Strategy: Attack
