@@ -1,4 +1,9 @@
-"""Implement an agent that manages a financial portfolio, choosing stocks to maximize returns and minimize risk using an Actor-Critic (A3C) method to optimize investment. Implement a robot that navigates a maze to reach the exit, with rewards for reaching the exit and penalties for hitting walls, and use REINFORCE to find the optimal navigation policy."""
+"""Implement an agent that manages a financial portfolio, choosing stocks to maximize returns 
+and minimize risk using an Actor-Critic (A3C) method to optimize investment. Implement a robot 
+that navigates a maze to reach the exit, with rewards for reaching the exit and penalties for 
+hitting walls, and use REINFORCE to find the optimal navigation policy."""
+
+Code:
 import numpy as np
 RETURNS=np.array([.12,.08,.05,-.03,.10])
 RISK=np.array([.20,.10,.08,.25,.12])
@@ -31,7 +36,10 @@ while True:
     elif ch=="2":print("\nOutput:\nPortfolio Evaluation Completed")
     elif ch=="3":break
     else:print("Invalid Choice")
-OUTPUT=""""Output:
+
+
+
+OUTPUT=
 ====== Portfolio Actor-Critic ======
 1.Train Agent
 2.Evaluate Portfolio
@@ -41,4 +49,4 @@ Output:
 Portfolio Policy: [0.251 0.234 0.212 0.101 0.202]
 Estimated Value: 0.057
 Best Stock: 1
-Risk Adjusted Return: 0.06"""
+Risk Adjusted Return: 0.06"
