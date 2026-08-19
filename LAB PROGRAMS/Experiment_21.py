@@ -1,4 +1,8 @@
-"""Train a virtual character to create engaging content (e.g., storytelling, interactive experiences) within a simulated virtual world using policy gradient methods. Implement the policy gradient algorithm in Python to optimize the character's behavior for maximum audience engagement."""
+"""Train a virtual character to create engaging content (e.g., storytelling, interactive experiences) within 
+a simulated virtual world using policy gradient methods. Implement the policy gradient algorithm in Python 
+to optimize the character's behavior for maximum audience engagement."""
+
+
 import numpy as np
 ACTIONS=["Story","Question","Challenge","Interaction"]
 ENGAGEMENT=np.array([.65,.85,.75,.95])
@@ -29,8 +33,10 @@ while True:
     elif ch=="2":print("\nOutput:\nAudience Engagement Evaluation Completed")
     elif ch=="3":break
     else:print("Invalid Choice")
-OUTPUT=""""Output:
+
+
+OUTPUT:
 Character Policy: [0.172 0.286 0.232 0.310]
 Best Behavior: Interaction
 Audience Engagement: 0.95
-Content Status: Optimized"""
+Content Status: Optimized
