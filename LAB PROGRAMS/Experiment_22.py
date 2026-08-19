@@ -1,4 +1,9 @@
-"""An autonomous exploration robot needs to navigate and map an unknown environment. Implement a sampling-based planning algorithm (e.g., RRT, RRT*, or PRM) to plan collision-free paths for the robot to explore efficiently. Write a Python program to simulate the robot's exploration process and visualize the generated paths."""
+"""An autonomous exploration robot needs to navigate and map an unknown environment. Implement a 
+sampling-based planning algorithm (e.g., RRT, RRT*, or PRM) to plan collision-free paths for the 
+robot to explore efficiently. Write a Python program to simulate the robot's exploration process 
+and visualize the generated paths."""
+
+
 import numpy as np
 START=(0,0)
 GOAL=(9,9)
@@ -29,8 +34,10 @@ while True:
     elif ch=="2":print("\nOutput:\nExploration Evaluation Completed")
     elif ch=="3":break
     else:print("Invalid Choice")
-OUTPUT=""""Output:
+
+
+OUTPUT:
 RRT Path: [(0,0),(1,0),(2,0),(3,0),(4,0),(5,0),(6,0),(7,0),(8,0),(9,0),(9,1),(9,2),(9,3),(9,4),(9,5),(9,6),(9,7),(9,8),(9,9)]
 Path Length: 18
 Goal Reached: True
-Collision Free: True"""
+Collision Free: True
