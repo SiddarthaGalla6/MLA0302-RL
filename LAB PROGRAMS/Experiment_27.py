@@ -1,4 +1,9 @@
-"""A logistics company aims to optimize its supply chain operations using model-based RL. Develop a data generation model that simulates order fulfillment processes, inventory flows, and transportation networks. Use Python to generate synthetic data and evaluate different supply chain management policies based on the simulated environment."""
+"""A logistics company aims to optimize its supply chain operations using model-based RL. Develop a data 
+generation model that simulates order fulfillment processes, inventory flows, and transportation networks. 
+Use Python to generate synthetic data and evaluate different supply chain management policies based on the 
+simulated environment."""
+
+
 import numpy as np
 ORDERS=np.random.poisson(15,50)
 def simulate():
@@ -30,8 +35,10 @@ while True:
     elif ch=="2":print("\nOutput:\nSupply Chain Evaluation Completed")
     elif ch=="3":break
     else:print("Invalid Choice")
-OUTPUT=""""Output:
+
+
+OUTPUT:
 Supply Policies: [10,15,20]
 Simulated Costs: [850.0,620.0,910.0]
 Best Policy: 15
-Minimum Cost: 620.0"""
+Minimum Cost: 620.0
