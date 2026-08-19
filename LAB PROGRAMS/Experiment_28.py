@@ -1,4 +1,9 @@
-"""Multiple agents collaborate to solve a cooperative task in a simulated environment with hierarchical structure and interdependencies. Implement the MAXQ framework to decompose the task into hierarchically organized subtasks and learn policies for each level of the hierarchy. Write a Python program to simulate the agents' interactions and evaluate their performance in achieving the overall task objectives."""
+"""Multiple agents collaborate to solve a cooperative task in a simulated environment with hierarchical 
+structure and interdependencies. Implement the MAXQ framework to decompose the task into hierarchically 
+organized subtasks and learn policies for each level of the hierarchy. Write a Python program to simulate 
+the agents' interactions and evaluate their performance in achieving the overall task objectives."""
+
+
 import numpy as np
 TASKS=["Collect","Transport","Deliver"]
 REWARDS=np.array([3,5,8])
@@ -26,6 +31,8 @@ while True:
     elif ch=="2":print("\nOutput:\nHierarchical Task Evaluation Completed")
     elif ch=="3":break
     else:print("Invalid Choice")
+
+
 OUTPUT=""""Output:
 MAXQ Values: [3.0,5.0,8.0]
 Collect Value: 3.0
