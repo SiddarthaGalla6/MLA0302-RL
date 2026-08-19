@@ -1,4 +1,9 @@
-"""A retail company aims to optimize its inventory management strategy using model-based RL. Develop a data generation model that simulates customer demand patterns and inventory dynamics. Use Python to generate synthetic data and evaluate different inventory management policies based on the simulated environment."""
+"""A retail company aims to optimize its inventory management strategy using model-based RL. 
+Develop a data generation model that simulates customer demand patterns and inventory dynamics. 
+Use Python to generate synthetic data and evaluate different inventory management policies 
+based on the simulated environment."""
+
+
 import numpy as np
 def simulate():
     demand=np.random.poisson(20,100)
@@ -32,8 +37,10 @@ while True:
     elif ch=="2":print("\nOutput:\nInventory Evaluation Completed")
     elif ch=="3":break
     else:print("Invalid Choice")
-OUTPUT=""""Output:
+
+
+OUTPUT:
 Inventory Policies: [10,20,30]
 Total Costs: [12000.0,11000.0,13500.0]
 Best Policy: 20
-Minimum Cost: 11000.0"""
+Minimum Cost: 11000.0
