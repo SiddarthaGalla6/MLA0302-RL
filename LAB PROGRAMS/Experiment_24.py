@@ -1,4 +1,9 @@
-"""Implement a value-equivalence prediction model to estimate the long-term performance of different investment portfolios. Use historical financial data and machine learning techniques to predict the value equivalence of alternative portfolio allocations. Write a Python program to analyze and compare the predicted performances of various investment strategies."""
+"""Implement a value-equivalence prediction model to estimate the long-term performance of different 
+investment portfolios. Use historical financial data and machine learning techniques to predict the 
+value equivalence of alternative portfolio allocations. Write a Python program to analyze and compare 
+the predicted performances of various investment strategies."""
+
+
 import numpy as np
 RETURNS=np.array([.12,.09,.15])
 RISK=np.array([.20,.10,.25])
@@ -25,9 +30,11 @@ while True:
     elif ch=="2":print("\nOutput:\nPortfolio Comparison Completed")
     elif ch=="3":break
     else:print("Invalid Choice")
-OUTPUT=""""Output:
+
+
+OUTPUT:
 Portfolio 1 Predicted Value: 0.017
 Portfolio 2 Predicted Value: 0.028
 Portfolio 3 Predicted Value: 0.022
 Best Portfolio: 2
-Highest Predicted Performance: 0.028"""
+Highest Predicted Performance: 0.028
