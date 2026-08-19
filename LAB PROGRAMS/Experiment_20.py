@@ -1,4 +1,8 @@
-"""Train an AI agent to compete in autonomous vehicle racing competitions using Advantage Actor-Critic (A2C) methods. Implement A2C in Python to learn aggressive driving policies that optimize lap times and race performance."""
+"""Train an AI agent to compete in autonomous vehicle racing competitions using Advantage 
+Actor-Critic (A2C) methods. Implement A2C in Python to learn aggressive driving policies 
+that optimize lap times and race performance."""
+
+
 import numpy as np
 ACTIONS=["Brake","Normal","Aggressive"]
 SPEED=np.array([.5,.8,1.0])
@@ -28,9 +32,11 @@ while True:
     elif ch=="2":print("\nOutput:\nRace Performance Evaluation Completed")
     elif ch=="3":break
     else:print("Invalid Choice")
-OUTPUT=""""Output:
+
+
+OUTPUT:
 A2C Values: [39.5,136.0,200.0]
 Optimal Driving Policy: Aggressive
 Best Race Score: 200.0
 Estimated Lap Time: 100.0
-Race Performance: Optimized"""
+Race Performance: Optimized
