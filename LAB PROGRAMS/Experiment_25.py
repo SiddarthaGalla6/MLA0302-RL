@@ -1,4 +1,9 @@
-"""A dynamic pricing platform aims to optimize its pricing strategy using model-based RL. Develop a predictive model that forecasts customer demand and price sensitivities based on historical sales data. Use Python to train the predictive model and implement a model-based policy optimization algorithm to dynamically adjust prices in response to changing market conditions."""
+"""A dynamic pricing platform aims to optimize its pricing strategy using model-based RL. 
+Develop a predictive model that forecasts customer demand and price sensitivities based on 
+historical sales data. Use Python to train the predictive model and implement a model-based 
+policy optimization algorithm to dynamically adjust prices in response to changing market conditions."""
+
+
 import numpy as np
 PRICES=np.arange(20,101,10)
 def demand(price):
@@ -27,9 +32,11 @@ while True:
     elif ch=="2":print("\nOutput:\nDynamic Pricing Optimization Completed")
     elif ch=="3":break
     else:print("Invalid Choice")
-OUTPUT=""""Output:
+
+
+OUTPUT:
 Prices: [20,30,40,50,60,70,80,90,100]
 Predicted Revenue: [16800,22800,23200,20000,14400,7000,0,0,0]
 Optimal Price: 40
 Predicted Demand: 680
-Maximum Revenue: 27200"""
+Maximum Revenue: 27200
