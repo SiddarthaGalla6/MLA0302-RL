@@ -1,4 +1,7 @@
-'''Question: A cybersecurity system uses RL to detect and respond to network attacks in real time. Analyze how states and environment can be modeled for intrusion detection. Design appropriate actions and reward functions, and evaluate the challenges of sparse rewards and real-time decision-making.'''
+'''Question: A cybersecurity system uses RL to detect and respond to network attacks in real time. Analyze how states and environment can be 
+modeled for intrusion detection. Design appropriate actions and reward functions, and evaluate the challenges of sparse rewards and real-time 
+decision-making.'''
+
 # Code:
 import numpy as np
 import random
@@ -116,6 +119,8 @@ print("\nReal-Time Decision Making Constraints:")
 print("  - Max allowed latency: <10ms per decision")
 print("  - Q-table lookup is O(1) - suitable for real-time inference")
 print("  - Neural network DQN would require quantization for speed")
+
+
 '''
 Output:
 Cybersecurity RL - Intrusion Detection System
