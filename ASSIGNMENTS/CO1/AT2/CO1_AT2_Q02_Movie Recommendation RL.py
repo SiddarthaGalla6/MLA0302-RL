@@ -1,4 +1,7 @@
-'''Question: A streaming platform wants to use Reinforcement Learning to recommend movies dynamically based on user preferences and viewing history. Apply RL concepts to construct a suitable state representation, action space, and reward function. Analyze how different reward signals affect user engagement and evaluate the trade-off between exploration and exploitation.'''
+'''Question: A streaming platform wants to use Reinforcement Learning to recommend movies dynamically based on user preferences and 
+viewing history. Apply RL concepts to construct a suitable state representation, action space, and reward function. Analyze how 
+different reward signals affect user engagement and evaluate the trade-off between exploration and exploitation.'''
+
 # Code:
 import numpy as np
 import random
@@ -74,6 +77,8 @@ print("\nReward Signal Impact:")
 print(f"  click_only  -> Maximizes clicks; ignores watch time; promotes clickbait")
 print(f"  engagement  -> Maximizes watch duration; better long-term satisfaction")
 print(f"  composite   -> Balances click, duration, and rating; most aligned with user value")
+
+
 '''
 Output:
 Streaming Platform - RL Recommendation System
