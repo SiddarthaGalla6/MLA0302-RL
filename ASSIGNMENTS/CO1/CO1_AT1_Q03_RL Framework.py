@@ -1,4 +1,7 @@
-# Question: To implement the basic Reinforcement Learning framework by designing an agent that interacts with an environment through states, actions, rewards, and policies using Python.
+'''Question: To implement the basic Reinforcement Learning framework by designing an agent that interacts with an environment through states, 
+actions, rewards, and policies using Python.'''
+
+
 # Code:
 import numpy as np
 import gymnasium as gym
@@ -38,7 +41,9 @@ for ep in range(5):
     print(f"Episode {ep+1}: Steps={steps}, Total Reward={total_reward}")
 print(f"Average Reward: {np.mean(episode_rewards):.2f}")
 env.close()
-# Output:
+
+
+'''Output:
 # RL Framework Initialized
 # States: 16, Actions: 4
 # Episode 1: Steps=20, Total Reward=0.0
@@ -46,4 +51,4 @@ env.close()
 # Episode 3: Steps=8, Total Reward=1.0
 # Episode 4: Steps=20, Total Reward=0.0
 # Episode 5: Steps=12, Total Reward=1.0
-# Average Reward: 0.40
+# Average Reward: 0.40'''
