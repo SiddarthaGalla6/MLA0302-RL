@@ -1,4 +1,7 @@
-'''Question: A smart grid system uses RL to manage electricity distribution and reduce peak load demand. Analyze how the components of an MDP can be defined in this context. Design a reward function to balance efficiency and reliability, and evaluate the challenges of scalability and real-time learning.'''
+'''Question: A smart grid system uses RL to manage electricity distribution and reduce peak load demand. Analyze how the components of an 
+MDP can be defined in this context. Design a reward function to balance efficiency and reliability, and evaluate the challenges of scalability 
+and real-time learning.'''
+
 # Code:
 import numpy as np
 import random
@@ -135,6 +138,8 @@ print("  Decision frequency: every 30 minutes (grid dispatch cycle)")
 print("  Inference: Q-table lookup O(1), suitable for real-time control")
 print("  Online learning risk: wrong action during training can cause blackouts")
 print("  Mitigation: offline pre-training + safe deployment with human override")
+
+
 '''
 Output:
 Smart Grid RL - Electricity Distribution and Peak Load Management
