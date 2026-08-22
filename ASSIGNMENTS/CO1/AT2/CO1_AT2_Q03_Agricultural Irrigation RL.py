@@ -1,4 +1,7 @@
-'''Question: An autonomous agricultural system uses RL to optimize irrigation and fertilizer usage based on soil conditions and weather forecasts. Design an RL framework by defining states, actions, and rewards. Analyze the effect of delayed rewards on crop yield optimization and justify the choice of a suitable learning algorithm.'''
+'''Question: An autonomous agricultural system uses RL to optimize irrigation and fertilizer usage based on soil conditions and weather 
+forecasts. Design an RL framework by defining states, actions, and rewards. Analyze the effect of delayed rewards on crop yield optimization 
+and justify the choice of a suitable learning algorithm.'''
+
 # Code:
 import numpy as np
 import random
@@ -87,6 +90,8 @@ print("  Q-Learning chosen: model-free, handles unknown weather transitions")
 print("  High gamma (0.9+) essential for delayed harvest rewards")
 print("  Epsilon-greedy exploration discovers diverse irrigation strategies")
 print("  Alternative: PPO for continuous water/fertilizer amounts")
+
+
 '''
 Output:
 Agricultural RL System - Irrigation and Fertilizer Optimization
