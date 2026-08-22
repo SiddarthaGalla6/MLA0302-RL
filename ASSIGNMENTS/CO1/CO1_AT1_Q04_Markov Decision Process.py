@@ -1,4 +1,7 @@
-# Question: To develop a simple Markov Decision Process model and simulate state transitions, reward functions, and policy execution for understanding sequential decision-making problems.
+'''Question: To develop a simple Markov Decision Process model and simulate state transitions, reward functions, and policy execution for 
+understanding sequential decision-making problems.'''
+
+
 # Code:
 import numpy as np
 states = ["S0", "S1", "S2", "S3_Terminal"]
@@ -37,7 +40,9 @@ while state != "S3_Terminal" and step < 10:
     step += 1
 print(f"\nFinal State: {state}")
 print(f"Total Discounted Reward: {total_reward:.3f}")
-# Output:
+
+
+'''Output:
 # MDP Simulation
 # States: ['S0', 'S1', 'S2', 'S3_Terminal']
 # Actions: ['A0', 'A1']
@@ -46,4 +51,4 @@ print(f"Total Discounted Reward: {total_reward:.3f}")
 # Step 1: S0 --[A0]--> S1 | Reward=5, Discounted=5.000
 # Step 2: S1 --[A0]--> S3_Terminal | Reward=10, Discounted=9.000
 # Final State: S3_Terminal
-# Total Discounted Reward: 14.000
+# Total Discounted Reward: 14.000'''
