@@ -1,4 +1,6 @@
-# Question: To develop a basic Reinforcement Learning agent using TensorFlow and Keras to solve the CartPole environment and evaluate its learning performance through episode rewards and success rate.
+'''Question: To develop a basic Reinforcement Learning agent using TensorFlow and Keras to solve the CartPole environment and 
+evaluate its learning performance through episode rewards and success rate.'''
+
 # Code:
 import numpy as np
 import tensorflow as tf
@@ -83,20 +85,23 @@ print(f"  Best Reward      : {best_reward:.1f}")
 print(f"  Successes (>=195): {successes}")
 print(f"  Success Rate     : {success_rate:.1f}%")
 env.close()
-# Output:
-# DQN Agent - CartPole-v1
-# Episodes: 50, Gamma: 0.95, Batch: 32
-# Episode   Reward   Epsilon     Status
-# ----------------------------------------
-#       1     18.0    0.9700       fail
-#      10     67.0    0.7374       fail
-#      20    134.0    0.5438       fail
-#      30    178.0    0.4010       fail
-#      40    195.0    0.2957    SUCCESS
-#      50    200.0    0.2181    SUCCESS
-# Final Evaluation:
-#   Total Episodes   : 50
-#   Average Reward   : 112.34
-#   Best Reward      : 200.0
-#   Successes (>=195): 8
-#   Success Rate     : 16.0%
+
+'''
+Output:
+DQN Agent - CartPole-v1
+Episodes: 50, Gamma: 0.95, Batch: 32
+Episode   Reward   Epsilon     Status
+----------------------------------------
+1     18.0    0.9700       fail
+      10     67.0    0.7374       fail
+      20    134.0    0.5438       fail
+      30    178.0    0.4010       fail
+      40    195.0    0.2957    SUCCESS
+      50    200.0    0.2181    SUCCESS
+Final Evaluation:
+Total Episodes   : 50
+Average Reward   : 112.34
+Best Reward      : 200.0
+Successes (>=195): 8
+Success Rate     : 16.0%
+'''
