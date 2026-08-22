@@ -1,4 +1,8 @@
-'''Question: A logistics company is developing an RL-based warehouse robot that learns to pick, pack, and transport items efficiently while avoiding obstacles and minimizing delays. Analyze how the components of a Markov Decision Process (states, actions, rewards, policy, and environment) can be defined for this system. Design a reward function that balances speed, accuracy, and safety, and evaluate how reward design influences the robot's learning and behavior.'''
+'''Question: A logistics company is developing an RL-based warehouse robot that learns to pick, pack, and transport items efficiently 
+while avoiding obstacles and minimizing delays. Analyze how the components of a Markov Decision Process (states, actions, rewards, policy, 
+and environment) can be defined for this system. Design a reward function that balances speed, accuracy, and safety, and evaluate how 
+reward design influences the robot's learning and behavior.'''
+
 # Code:
 import numpy as np
 import random
@@ -109,6 +113,8 @@ print("\nPolicy Influence Evaluation:")
 print("  High collision penalty -> Robot learns obstacle avoidance quickly")
 print("  Step penalty -> Robot prefers shortest paths (speed optimization)")
 print("  Staged rewards -> Robot learns sub-task ordering (pick->pack->deliver)")
+
+
 '''
 Output:
 Warehouse Robot RL Simulation
