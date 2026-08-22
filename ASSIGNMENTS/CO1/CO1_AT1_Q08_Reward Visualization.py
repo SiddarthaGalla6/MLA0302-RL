@@ -1,4 +1,5 @@
-# Question: To simulate an RL agent in a simple environment and visualize cumulative rewards, episode rewards, and learning performance using Matplotlib graphs.
+'''Question: To simulate an RL agent in a simple environment and visualize cumulative rewards, episode rewards, and learning performance using Matplotlib graphs.'''
+
 # Code:
 import numpy as np
 import matplotlib
@@ -59,7 +60,9 @@ print("\nPlot saved as reward_visualization.png")
 print(f"Final Cumulative Reward: {cumulative_rewards[-1]:.1f}")
 print(f"Success Rate: {sum(episode_rewards)/n_episodes*100:.1f}%")
 env.close()
-# Output:
+
+'''
+Output:
 # Reward Visualization - Q-Learning on FrozenLake
 # Episodes: 200, Alpha: 0.1, Gamma: 0.9, Epsilon: 0.3
 # Episode  50: Cumulative=4.0, Avg(last 50)=0.080
@@ -69,3 +72,4 @@ env.close()
 # Plot saved as reward_visualization.png
 # Final Cumulative Reward: 45.0
 # Success Rate: 22.5%
+'''
