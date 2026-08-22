@@ -1,4 +1,6 @@
-# Question: To implement the Multi-Armed Bandit problem using epsilon-Greedy and Upper Confidence Bound (UCB) algorithms and evaluate cumulative rewards obtained by different action-selection methods.
+'''Question: To implement the Multi-Armed Bandit problem using epsilon-Greedy and Upper Confidence Bound (UCB) algorithms and 
+evaluate cumulative rewards obtained by different action-selection methods.'''
+
 # Code:
 import numpy as np
 np.random.seed(0)
@@ -50,7 +52,9 @@ optimal_reward = true_means[np.argmax(true_means)] * n_steps
 print(f"  Optimal Total Reward (theoretical): {optimal_reward:.2f}")
 print(f"  Epsilon-Greedy Regret: {optimal_reward - eps_rewards[-1]:.2f}")
 print(f"  UCB Regret:            {optimal_reward - ucb_rewards[-1]:.2f}")
-# Output:
+
+'''
+Output:
 # Multi-Armed Bandit Problem
 # Arms: 6, Steps: 300
 # True Means: [1.2 2.5 0.5 3.5 1.8 2.9]
@@ -63,3 +67,4 @@ print(f"  UCB Regret:            {optimal_reward - ucb_rewards[-1]:.2f}")
 #   Optimal Total Reward (theoretical): 1050.00
 #   Epsilon-Greedy Regret: 126.55
 #   UCB Regret:             62.88
+'''
