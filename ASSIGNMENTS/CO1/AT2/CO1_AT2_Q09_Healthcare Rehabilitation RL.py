@@ -1,4 +1,7 @@
-'''Question: A healthcare system uses RL to recommend personalized rehabilitation exercises for patients based on their progress. Design an RL framework with suitable states, actions, and rewards. Analyze the impact of delayed rewards and patient variability, and evaluate ethical concerns and safety considerations.'''
+'''Question: A healthcare system uses RL to recommend personalized rehabilitation exercises for patients based on their progress. 
+Design an RL framework with suitable states, actions, and rewards. Analyze the impact of delayed rewards and patient variability, and 
+evaluate ethical concerns and safety considerations.'''
+
 # Code:
 import numpy as np
 import random
@@ -122,6 +125,9 @@ print("  1. Safety constraint: block high-intensity actions when pain >= severe"
 print("  2. Human oversight: physician must approve plan before deployment")
 print("  3. Informed consent: patient preference must be part of state/reward")
 print("  4. Accountability: RL agent recommendations must be explainable to clinicians")
+
+
+
 '''
 Output:
 Healthcare RL - Personalized Rehabilitation System
