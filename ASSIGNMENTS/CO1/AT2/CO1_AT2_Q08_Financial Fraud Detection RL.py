@@ -1,4 +1,7 @@
-'''Question: A financial institution uses RL to detect fraudulent transactions in real time. Apply RL principles to define the state space, action space, and reward function. Analyze the challenges of imbalanced data and delayed feedback, and evaluate the risks associated with incorrect decisions.'''
+'''Question: A financial institution uses RL to detect fraudulent transactions in real time. Apply RL principles to define the state space, 
+action space, and reward function. Analyze the challenges of imbalanced data and delayed feedback, and evaluate the risks associated with 
+incorrect decisions.'''
+
 # Code:
 import numpy as np
 import random
@@ -124,6 +127,8 @@ print("  False Negative (missed fraud): Direct financial loss to institution")
 print("  False Positive (blocked legit): Customer dissatisfaction, churn risk")
 print("  Delayed feedback: confirmation of fraud arrives hours/days later")
 print("  Mitigation: two-stage RL (flag then confirm) with delayed reward updates")
+
+
 '''
 Output:
 Financial Fraud Detection - RL System
