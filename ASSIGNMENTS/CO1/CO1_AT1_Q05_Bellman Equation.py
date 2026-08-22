@@ -1,4 +1,6 @@
-# Question: To implement Bellman Expectation and Bellman Optimality Equations for calculating state-value and action-value functions and analyze the convergence of value estimation.
+'''Question: To implement Bellman Expectation and Bellman Optimality Equations for calculating state-value and action-value functions and 
+analyze the convergence of value estimation.'''
+
 # Code:
 import numpy as np
 n_states = 5
@@ -42,7 +44,9 @@ for iteration in range(50):
 optimal_policy = [np.argmax([R[s, a] + gamma * np.dot(P[s, a], V_opt) for a in range(n_actions)]) for s in range(n_states)]
 print(f"\nOptimal Policy: {optimal_policy}")
 print(f"Optimal Values: {np.round(V_opt, 3)}")
-# Output:
+
+
+'''Output:
 # Bellman Equation Demonstration
 # States: 5, Actions: 2, Gamma: 0.9
 # Bellman Expectation - Policy Evaluation:
@@ -52,4 +56,4 @@ print(f"Optimal Values: {np.round(V_opt, 3)}")
 #   Iteration 10: Delta=0.000031, V*=[42.11 44.87 41.56 43.22 44.01]
 #   Converged at iteration 16
 # Optimal Policy: [1, 0, 1, 0, 1]
-# Optimal Values: [42.113 44.872 41.562 43.221 44.011]
+# Optimal Values: [42.113 44.872 41.562 43.221 44.011]'''
