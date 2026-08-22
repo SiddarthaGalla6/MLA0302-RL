@@ -1,4 +1,5 @@
-# Question: To build a simple feed-forward neural network using TensorFlow and Keras for approximating value functions in Reinforcement Learning environments.
+'''Question: To build a simple feed-forward neural network using TensorFlow and Keras for approximating value functions in Reinforcement Learning environments.'''
+
 # Code:
 import numpy as np
 import tensorflow as tf
@@ -59,7 +60,9 @@ print(f"\nSample State: {np.round(sample_state, 3)}")
 print(f"Predicted Q-values: {np.round(q_values, 4)}")
 print(f"Suggested Action: {np.argmax(q_values)} ({'Right' if np.argmax(q_values)==1 else 'Left'})")
 env.close()
-# Output:
+
+
+'''Output:
 # Neural Network Architecture:
 # Model: "sequential"
 # _________________________________________________________________
@@ -79,3 +82,4 @@ env.close()
 # Sample State: [ 0.023 -0.041  0.011  0.029]
 # Predicted Q-values: [0.0412 0.0389]
 # Suggested Action: 0 (Left)
+'''
