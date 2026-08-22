@@ -1,4 +1,6 @@
-'''Question: A gaming company is developing an RL-based agent to play a complex strategy game against human players. Analyze how the problem can be modeled as an MDP. Design a reward structure that encourages long-term strategy and evaluate how exploration strategies affect performance.'''
+'''Question: A gaming company is developing an RL-based agent to play a complex strategy game against human players. Analyze how the problem 
+can be modeled as an MDP. Design a reward structure that encourages long-term strategy and evaluate how exploration strategies affect performance.'''
+
 # Code:
 import numpy as np
 import random
@@ -134,6 +136,8 @@ print("  Immediate rewards guide turn-by-turn tactics (attack/defend)")
 print("  Strategic bonus after turn 30 rewards patience and territory control")
 print("  Gamma-discounted long-term bonus aligns early actions with endgame goals")
 print("  Without long-term reward: agent learns to attack recklessly for +8 bonus")
+
+
 '''
 Output:
 Strategy Game RL Agent - MDP Modeling
