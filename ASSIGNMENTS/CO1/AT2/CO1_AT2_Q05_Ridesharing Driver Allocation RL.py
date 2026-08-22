@@ -1,4 +1,6 @@
-'''Question: A ride-sharing company plans to use RL to optimize driver allocation and dynamic pricing strategies. Apply RL concepts to define states, actions, and rewards. Analyze how environmental uncertainty affects learning and evaluate ethical concerns related to pricing strategies.'''
+'''Question: A ride-sharing company plans to use RL to optimize driver allocation and dynamic pricing strategies. Apply RL concepts to define 
+states, actions, and rewards. Analyze how environmental uncertainty affects learning and evaluate ethical concerns related to pricing strategies.'''
+
 # Code:
 import numpy as np
 import random
@@ -93,6 +95,8 @@ print("  1. Surge pricing during emergencies (disasters, storms) - exploitative"
 print("  2. Price discrimination by neighborhood income levels")
 print("  3. Driver exploitation if company revenue is over-weighted in reward")
 print("  4. Mitigation: cap multiplier at 1.5x, add fairness penalty above 1.8x")
+
+
 '''
 Output:
 Ride-Sharing RL - Driver Allocation and Dynamic Pricing
