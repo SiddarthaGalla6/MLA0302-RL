@@ -1,4 +1,7 @@
-'''Question: A smart home automation system uses RL to control lighting, heating, and cooling based on occupancy and weather conditions. Design an RL framework including states, actions, and reward function. Analyze how conflicting objectives like comfort and energy saving can be handled and evaluate the impact of reward shaping.'''
+'''Question: A smart home automation system uses RL to control lighting, heating, and cooling based on occupancy and weather conditions. 
+Design an RL framework including states, actions, and reward function. Analyze how conflicting objectives like comfort and energy saving can 
+be handled and evaluate the impact of reward shaping.'''
+
 # Code:
 import numpy as np
 import random
@@ -139,6 +142,8 @@ print("  Safety penalty for heating empty rooms reduces wasteful actions")
 print("  Shaped reward guides agent away from local optima (always-on policy)")
 print("  Without shaping: agent may learn to keep heating ON for comfort bonus")
 print("  With shaping: agent learns to pre-cool/heat before occupancy")
+
+
 '''
 Output:
 Smart Home RL - Lighting, Heating, and Cooling Control
