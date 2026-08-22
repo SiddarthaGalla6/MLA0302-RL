@@ -1,4 +1,6 @@
-# Question: To create, initialize, and interact with standard Reinforcement Learning environments such as FrozenLake, CartPole, and MountainCar using Gymnasium to understand the concepts of states, actions, rewards, and episodes.
+'''Question: To create, initialize, and interact with standard Reinforcement Learning environments such as FrozenLake, CartPole, and 
+MountainCar using Gymnasium to understand the concepts of states, actions, rewards, and episodes.'''
+
 # Code:
 import gymnasium as gym
 def explore_env(name, steps=5):
@@ -21,7 +23,8 @@ def explore_env(name, steps=5):
 explore_env("FrozenLake-v1", steps=5)
 explore_env("CartPole-v1", steps=5)
 explore_env("MountainCar-v0", steps=5)
-# Output:
+ 
+'''Output:
 # Environment: FrozenLake-v1
 # Observation Space: Discrete(16)
 # Action Space: Discrete(4)
@@ -47,4 +50,4 @@ explore_env("MountainCar-v0", steps=5)
 # Step 3: Action=1, Reward=-1.0, Done=False
 # Step 4: Action=0, Reward=-1.0, Done=False
 # Step 5: Action=1, Reward=-1.0, Done=False
-# Total Reward: -5.0
+# Total Reward: -5.0'''
